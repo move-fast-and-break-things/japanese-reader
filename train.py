@@ -28,7 +28,7 @@ datamodule = ImageClassificationData.from_files(
     predict_files=[
         "data/katakana/ba_851CHIKARA-DZUYOKU-KANA-A_dakutrue.jpeg",
     ],
-    batch_size=3,
+    batch_size=1,
 )
 predictions = trainer.predict(model, datamodule=datamodule, output="labels")
 print(predictions)
