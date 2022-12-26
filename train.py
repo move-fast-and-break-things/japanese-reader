@@ -1,19 +1,19 @@
 from pathlib import Path
 import torch
 import flash
-#from flash.core.data.utils import download_data
 from flash.image import ImageClassificationData, ImageClassifier
 
 # 1. Create the DataModule
 
 images_path = Path("data/katakana")
-train_path = (images_path/'train')
-validation_path = (images_path/'validation')
+train_path = str(images_path/"train")
+validation_path = str(images_path/"validation")
 
 datamodule = ImageClassificationData.from_folders(
     train_folder=train_path,
     val_folder=validation_path,
-    batch_size = 3,
+    batch_size=3,
+    transform_kwargs={"image_size": (196, 196), "mean": (0.485, 0.456, 0.406), "std": (0.229, 0.224, 0.225)},
 )
 
 # 2. Build the task
