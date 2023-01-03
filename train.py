@@ -2,10 +2,14 @@ from pathlib import Path
 import torch
 import flash
 from flash.image import ImageClassificationData, ImageClassifier
-
+import del_symbol
 # 1. Create the DataModule
 
-images_path = Path("data/katakana")
+data_dir = "data/katakana"
+
+del_symbol(data_dir)
+
+images_path = Path(data_dir)
 train_path = str(images_path/"train")
 validation_path = str(images_path/"validation")
 
