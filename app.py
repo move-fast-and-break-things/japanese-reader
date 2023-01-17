@@ -7,6 +7,8 @@ from flash.image import ImageClassifier
 
 import lightning as L
 from lightning.app.components.serve import ServeGradio
+from flash.image import ImageClassificationData
+from flash import Trainer
 
 
 class LitGradio(ServeGradio):
@@ -23,9 +25,12 @@ class LitGradio(ServeGradio):
         self.ready = False
 
     def predict(self, image) -> str:
-        results = self.model(image, size=196)
-        results.render()
-        return Image.fromarray(results.ims[0])
+        trainer = Trainer()
+        datamodule = ImageClassificationData.from_images(
+        predict_files=[image]
+        )
+        predictions = trainer.predict(self.model, datamodule=datamodule)
+        return predictions[0]
     
     def build_model(self):
         model = ImageClassifier.load_from_checkpoint("image_classification_model.pt")
