@@ -10,8 +10,8 @@ from lightning.app.components.serve import ServeGradio
 
 class LitGradio(ServeGradio):
 
-    inputs = gr.inputs.Image(type="pil", label="Upload Image for Object Detection")
-    outputs = gr.outputs.Image(type="pil", label="Output Image")
+    inputs = gr.inputs.Image(type="pil", source="canvas", label="Draw a glyph")
+    outputs = gr.outputs.Label()
     #demo_img = "https://imageio.forbes.com/specials-images/imageserve/60abf319b47a409ca17f4a3f/Pedestrians-cross-Broadway--in-the-SoHo-neighborhood-in-New-York--United-States--May/960x0.jpg?format=jpg&width=960"
     #img = Image.open(requests.get(demo_img, stream=True).raw)
     #img.save("960x0.jpg")
