@@ -7,8 +7,6 @@ import del_symbol
 
 data_dir = "data/katakana"
 
-del_symbol(data_dir)
-
 images_path = Path(data_dir)
 train_path = str(images_path/"train")
 validation_path = str(images_path/"validation")
@@ -30,7 +28,7 @@ trainer.finetune(model, datamodule=datamodule, strategy="freeze")
 # 4. Predict what's on a few images! ants or bees?
 datamodule = ImageClassificationData.from_files(
     predict_files=[
-        "data/katakana/ba_851CHIKARA-DZUYOKU-KANA-A_dakutrue.jpeg",
+        "data/katakana/train/ba/ba_Gyate-Luminescence_dakutrue.jpeg",
     ],
     batch_size=1,
 )
