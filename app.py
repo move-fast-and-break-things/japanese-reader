@@ -27,8 +27,8 @@ class LitGradio(ServeGradio):
         return Image.fromarray(results.ims[0])
     
     def build_model(self):
-        yolo = torch.hub.load("image_classification_model.pt", "image_classification_model")
+        model = torch.hub.load("image_classification_model.pt", "image_classification_model")
         self.ready = True
-        return yolo
+        return model
 
 app = L.LightningApp(LitGradio())
