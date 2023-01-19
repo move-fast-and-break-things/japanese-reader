@@ -8,7 +8,7 @@ from flash import Trainer
 
 class LitGradio(ServeGradio):
 
-    inputs = gr.inputs.Image(type="pil", source="canvas", label="Draw a glyph")
+    inputs = gr.inputs.Image(type="pil", source="canvas", shape=(196, 196), label="Draw a glyph")
     outputs = gr.outputs.Label(label="Prediction")
 
     def __init__(self):
@@ -19,7 +19,7 @@ class LitGradio(ServeGradio):
         trainer = Trainer()
         datamodule = ImageClassificationData.from_images(
             predict_images=[image],
-            #transform_kwargs={"image_size": (196, 196)},
+            transform_kwargs={"image_size": (196, 196)},
             batch_size=1,
             )
         predictions = trainer.predict(self.model, datamodule=datamodule, output="labels")
