@@ -21,7 +21,7 @@ datamodule = ImageClassificationData.from_folders(
 model = ImageClassifier(backbone="resnet34", labels=datamodule.labels)
 
 
-trainer = flash.Trainer(max_epochs=7, gpus=torch.cuda.device_count())
+trainer = flash.Trainer(max_epochs=7, gpus=torch.cuda.device_count(), auto_lr_find=True)
 trainer.finetune(model, datamodule=datamodule, strategy="freeze")
 
 
