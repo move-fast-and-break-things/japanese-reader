@@ -2,8 +2,7 @@ from pathlib import Path
 import torch
 import flash
 from flash.image import ImageClassificationData, ImageClassifier
-import del_symbol
-# 1. Create the DataModule
+
 
 data_dir = "data/katakana"
 
@@ -18,14 +17,14 @@ datamodule = ImageClassificationData.from_folders(
     transform_kwargs={"image_size": (196, 196), "mean": (0.485, 0.456, 0.406), "std": (0.229, 0.224, 0.225)},
 )
 
-# 2. Build the task
-model = ImageClassifier(backbone="resnet18", labels=datamodule.labels)
 
-# 3. Create the trainer and finetune the model
-trainer = flash.Trainer(max_epochs=3, gpus=torch.cuda.device_count())
+model = ImageClassifier(backbone="resnet34", labels=datamodule.labels)
+
+
+trainer = flash.Trainer(max_epochs=7, gpus=torch.cuda.device_count())
 trainer.finetune(model, datamodule=datamodule, strategy="freeze")
 
-# 4. Predict what's on a few images! ants or bees?
+
 datamodule = ImageClassificationData.from_files(
     predict_files=[
         "data/katakana/train/ba/ba_Gyate-Luminescence_dakutrue.jpeg",
@@ -35,5 +34,5 @@ datamodule = ImageClassificationData.from_files(
 predictions = trainer.predict(model, datamodule=datamodule, output="labels")
 print(predictions)
 
-# 5. Save the model!
-trainer.save_checkpoint("image_classification_model.pt")
+
+trainer.save_checkpoint("resnet34_8epochs.pt")
